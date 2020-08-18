@@ -6,12 +6,11 @@ In this project, I scrape car information and prices from the internet, analyse 
 A high-level plan is as follows: 
 
 * Build a scraping script (Done)
-* Scrape the data (In progress)
-* Clean the data (In progress)
+* Scrape the data (Done)
+* Clean the data (1/2 Performed initial clean)
 * Analyse the data ()
 * Feature engineering ()
 * Model build ()
-* API (TBC)
 
 The current website I have chosen to scrape from is UK car website Autotrader. I will not be uploading any of the data but will upload the scraping script. 
 
