@@ -33,7 +33,7 @@ def remove_dup(df1,df2):
 
 
 for brand in high_freq: 
-    rel=pd.read_csv(brand+'_data.csv')
+    rel=pd.read_csv(brand+'_data_relevance.csv')
     asc=pd.read_csv(brand+'_data_asc.csv')
     desc=pd.read_csv(brand+'_data_desc.csv')
     
@@ -45,4 +45,4 @@ for brand in high_freq:
     rel_new=remove_dup(rel,asc)
     
     asc_new.to_csv(brand+'_data_asc.csv')
-    rel_new.to_csv(brand+'_data.csv')
+    rel_new.to_csv(brand+'_data_relevance.csv')
