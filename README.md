@@ -3,11 +3,11 @@ An end-to-end ML project developing a car pricing tool.
 
 In this project, I scraped car information and prices from the internet, cleaned and analysed the data and built a regression model to predict car prices. I settled on using a **TBC** model which achieved a CV RMSE of **TBC** and an RMSE on unseen test data of **TBC**. 
 
-The current website I have chosen to scrape from is UK car website Autotrader. I will not be uploading any of the data but will upload the scraping script. 
+The website I chose to scrape from was UK car website Autotrader. I will not be uploading any of the data but have uploaded the scraping script. 
 
 # 1. Scraping 
 
-I used Selenium and BeautifulSoup (bs4) to scrape information from UK car website Autotrader. I have not uploaded any of the scraped data here but the script is available to reproduce similar data. 
+I used Selenium and BeautifulSoup (bs4) to scrape the data. 
 
 Initial Limitations: 
 * Autotrader limited to first 100 pages (i.e. even if there were 40k cars of a brand, I could only scrape ~1300 for a given search setting). 
