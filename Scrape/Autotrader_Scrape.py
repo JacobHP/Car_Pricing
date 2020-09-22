@@ -1,10 +1,4 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
-"""
-Created on Thu Jul 23 17:08:52 2020
 
-@author: Jacob
-"""
 """
 Scrapes from Autotrader (National UK) based on car brand. I ran this for each brand seperately.
 Checking number of pages is done manually. No error is recorded if beyond page range
@@ -17,23 +11,7 @@ from time import sleep
 import pandas as pd
 
 def scrape(pages, brand,postcode,method='relevance'):
-    """
-    Parameters
-    ----------
-    pages : int
-        number of pages to scrape - max is 100
-    brand : string
-        brand of car to scrape.UPPERCASE. denote space by %20
-    postcode : string
-        uk postcode, all lowercase e.g. sw11ty (i just made this up)
-    method : TYPE, string, optional
-        String from ['relevance','asc','desc'] The default is 'relevance'.
-
-    Returns
-    -------
-    None. saves csv
-
-    """
+    
     scraped_list=[]
     driver=webdriver.Firefox()
     for i in range(1, pages+1):       
