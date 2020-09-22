@@ -1,10 +1,4 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
 
-"""
-Due to our scraping methods to get a broad range of the most popular brands, we may have obtained duplicates
-where ascending and descending overlap with relevant. These will need to be removed.
-"""
 import pandas as pd
 
 high_freq=['AUDI','BMW','CITROEN','FIAT','FORD','HONDA','HYUNDAI','JAGUAR','KIA',\
