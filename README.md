@@ -53,11 +53,11 @@ I then proceeded to:
 Due to the simplicity of the data and satisfying initial view, this was kept fairly short. Key highlights were as follows: 
 
 * Numerical features all displayed reasonable correlation (abs > 0.5) with Price
-![alt text](https://github.com/JacobHP/XGBoost_Car_Pricing/blob/Analysis/NumCorrs.png?raw=true)
+![alt text](https://github.com/JacobHP/XGBoost_Car_Pricing/blob/master/Analysis/NumCorrs.png?raw=true)
 * Categoricals all displayed clear relationships with Price. In addition to visualisation I performed ANOVA which was conclusive in there being a difference in means between categories. 
-![alt text](https://github.com/JacobHP/XGBoost_Car_Pricing/blob/Analysis/Cats.png?raw=true)
+![alt text](https://github.com/JacobHP/XGBoost_Car_Pricing/blob/master/Analysis/Cats.png?raw=true)
 * Cheapest cars were from the early 2000s, moving away in either direction saw increases in price. 
-![alt text](https://github.com/JacobHP/XGBoost_Car_Pricing/blob/Analysis/Years.png?raw=true)
+![alt text](https://github.com/JacobHP/XGBoost_Car_Pricing/blob/master/Analysis/Years.png?raw=true)
 # 4. Feature Engineering
 
 * Log-transformed target (in the hope of pushing more values to the right for learning - model performed slightly better as a result)
