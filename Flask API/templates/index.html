@@ -1,0 +1,159 @@
+
+<!DOCTYPE html>
+<html >
+
+<head>
+  <meta charset="UTF-8">
+  <title>Car Pricing API</title>
+<style>
+body {background-color: powderblue;}
+.header {color: blue;
+    text-align: center;
+    padding: 20px;
+    font-size: 30px;}
+
+.misc {color: blue;
+      text-align: center;
+      font-size: 16px;}
+
+span {display: block;
+      margin-bottom:20px;
+      text-align: center;
+      }
+input {margin-right: 20px}
+select {margin-right: 20px}
+
+.btn-block {
+            text-align: center;
+            width: 50%;
+            font-size: 16px;
+            cursor: pointer;
+            }
+.pred { color: red;
+        font-size: 30px;
+        text-align: center;
+
+      }
+.background-info {
+                  font-size: 14px;
+                  padding: 10px;
+                  text-align: center;
+                }
+</style>
+
+</head>
+
+<body>
+ <div class="header">
+	<h1>Car Price Predictor</h1>
+  <p> Hi, welcome to my car price predictor. Enter the attributes as instructed below and it'll spit out a value!
+  </p>
+  </div>
+
+<div>
+
+     <!-- Main Input For Receiving Query to our ML -->
+    <form action="{{ url_for('predict')}}"method="post">
+        <span>
+
+        <label>Make</label>
+        <select name="make">
+          <option value="Alfa Romeo">Alpha Romeo</option> <option value="Aston Martin">Aston Martin</option>
+          <option value="Audi">Audi</option> <option value="BMW">BMW</option> <option value="Bentley">Bentley</option>
+          <option value="Chevrolet">Chevrolet</option> <option value="Chrysler">Chrysler</option>
+          <option value="Citroen">Citroen</option> <option value="DS">DS</option> <option value="Dacia">Dacia</option>
+          <option value="Daihatsu">Daihatsu</option> <option value="Dodge">Dodge</option> <option value="Ferrari">Ferrari</option>
+          <option value="Fiat">Fiat</option> <option value="Ford">Ford</option> <option value="Honda">Honda</option>
+          <option value="Hyundai">Hyundai</option> <option value="Infiniti">Infiniti</option> <option value="Isuzu">Isuzu</option>
+          <option value="Jaguar">Jaguar</option> <option value="Jeep">Jeep</option> <option value="KIA">KIA</option>
+          <option value="Lamborghini">Lamborghini</option> <option value="Land Rover">Land Rover</option>
+          <option value="Lexus">Lexus</option> <option value="MG">MG</option> <option value="MINI">MINI</option>
+          <option value="Maserati">Maserati</option> <option value="Mazda">Mazda</option> <option value="McLaren">McLaren</option>
+          <option value="Mercedes-Benz">Mercedes-Benz</option> <option value="Mitsubishi">Mitsubishi</option>
+          <option value="Nissan">Nissan</option> <option value="Peugeot'">Peugeot</option> <option value="Porsche">Porsche</option>
+          <option value="Renault">Renault</option> <option value="Rolls-Royce">Rolls-Royce</option>
+          <option value="Rover">Rover</option> <option value="SEAT">SEAT</option> <option value="SKODA">SKODA</option>
+          <option value="Saab">Saab</option> <option value="Smart">Smart</option> <option value="Ssangyong">Ssangyong</option>
+          <option value="Subaru">Subaru</option> <option value="Suzuki">Suzuki</option> <option value="Toyota">Toyota</option>
+          <option value="Vauxhall">Vauxhall</option> <option value="Volkswagen">Volkswagen</option>
+          <option value="Volvo">Volvo</option> <option value="Other">Other</option>
+        </select>
+
+        <label>Year</label>
+        <input type="number" name="year" placeholder="Year" required="required" min="1900" max="2030" />
+        <label>Miles</label>
+        <input type="number" name="miles" placeholder="Miles" min="0" required="required" />
+        <label>Engine</label>
+        <input type="number" step="0.1" name="engine" min="0" required="required" />
+        </span>
+
+        <span>
+
+        <label>Power</label>
+        <input type="number" name="power" placeholder="Power" min="0" required="required" />
+
+        <label>Style</label>
+        <select name="style">
+          <option value="Coupe">Coupe</option> <option value="Estate">Estate</option> <option value="Hatchback">Hatchback</option>
+           <option value="MPV">MPV</option> <option value="Pickup">Pickup</option>  <option value="SUV">SUV</option>
+          <option value="Saloon">Saloon</option>
+        </select>
+      </span>
+
+      <span>
+        <label>Transmission</label>
+        <select name="transmission">
+          <option value="Manual">Manual</option>
+          <option value="Automatic">Automatic</option>
+        </select>
+
+        <label>Fuel</label>
+        <select name="fuel">
+          <option value="Petrol">Petrol</option>
+          <option value="Diesel">Diesel</option>
+        </select>
+
+        <label>Owners</label>
+        <input type="number" name="owners" placeholder="Owners" min="0" required="required" />
+      </span>
+
+      <span>
+        <label>Doors</label>
+        <input type="number" name="doors" placeholder="Doors" min="0" required="required" />
+
+        <label>Any issues?</label>
+        <select name="issue_flag">
+          <option value="N">N</option>
+          <option value="Y">Y</option>
+        </select>
+      </span>
+      <span>
+       <button type="submit" class="btn-block">Predict</button>
+     </span>
+    </form>
+
+   <br>
+   <br>
+   <p class="pred">
+   {{ prediction_text }}
+   </p>
+
+ </div>
+ <div>
+   <p class="misc">
+   <b>Enter values as follows: </b>
+   <br> • If your car brand is not on the list, please select "Other"
+   <br> • Engine is measured in litres, please enter to the nearest 1 decimal place
+   <br> • Power is measured in BHP. Conversions can be found <a href="http://www.statman.info/conversions/power.html">here</a>
+   <br> • If there are any issues with the car (structural damage, non-runner etc.) please select 'Any Issues?' as 'Y'
+ </p>
+ <p class="background-info">
+   This was a starter regression project using xgboost. The model works well for normal-priced cars (less than £100k). <br>
+   However as expected can be volatile for higher priced cars. Full details of the project can be found
+   <a href="https://github.com/JacobHP/XGBoost_Car_Pricing">here</a>.
+ </p>
+
+ </div>
+
+</body>
+</html>
