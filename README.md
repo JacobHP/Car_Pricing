@@ -72,8 +72,9 @@ Due to the simplicity of the data and satisfying initial view, this was kept fai
 * Optimised hyperparameters for XGBRegressor using a mixture of single-parameter tuning and GridSearchCV
 * Created a scoring function to return the RMSE of predictions in terms of their actual value after exponential transformation. Applied this in both the CV scoring and scoring on validation data.
 
+# 6. Results and Residual Analysis
 
-# 6. Building an API 
+# 7. Building an API 
 
 * Used Flask to create an API, taking user inputs into the model and returning a predicted value
 * Wrote simple HTML GUI for Flask app
