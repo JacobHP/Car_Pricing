@@ -1,7 +1,7 @@
 # Car_Pricing
 An end-to-end ML project developing a car pricing tool.
 
-In this project, I scraped car information and prices from the internet, cleaned and analysed the data and built a regression model to predict car prices. I settled on using the xgboost XGBRegressor which achieved a CV RMSE of **TBC** (1739.32 on obs <£100k) and an RMSE on unseen test data of **TBC** (2929.24 on obs <£100k). 
+In this project, I scraped car information and prices from the internet, cleaned and analysed the data and built a regression model to predict car prices. I settled on using the xgboost XGBRegressor which achieved a CV RMSE of 10089.60 (**1739.32** on obs <£100k) and an RMSE on unseen test data of 8016.97 (**2929.24** on obs <£100k). 
 
 From the RMSE results it is clear that the model works reasonably well on most cars (indeed the majority of the cars scraped were <£100k), but is volatile for high-priced cars. In the future I plan to look at scraping more high-price data, building another model on these and determining criteria as to which model should be applied to an unseen test observation. D
 ue to autotrader being primarily used cars, I expect the model may also struggle on brand new cars.
@@ -53,9 +53,11 @@ I then proceeded to:
 Due to the simplicity of the data and satisfying initial view, this was kept fairly short. Key highlights were as follows: 
 
 * Numerical features all displayed reasonable correlation (abs > 0.5) with Price
+![alt text](https://github.com/JacobHP/XGBoost_Car_Pricing/blob/Analysis/NumCorrs.png?raw=true)
 * Categoricals all displayed clear relationships with Price. In addition to visualisation I performed ANOVA which was conclusive in there being a difference in means between categories. 
+![alt text](https://github.com/JacobHP/XGBoost_Car_Pricing/blob/Analysis/Cats.png?raw=true)
 * Cheapest cars were from the early 2000s, moving away in either direction saw increases in price. 
-
+![alt text](https://github.com/JacobHP/XGBoost_Car_Pricing/blob/Analysis/Years.png?raw=true)
 # 4. Feature Engineering
 
 * Log-transformed target (in the hope of pushing more values to the right for learning - model performed slightly better as a result)
@@ -77,8 +79,11 @@ Due to the simplicity of the data and satisfying initial view, this was kept fai
 * Wrote simple HTML GUI for Flask app
 * *To be hosted somewhere*
 
-
-
+Until I get round to setting it up on gihub.io, you can try the API as follows:
+* Download app1.py, xgb_car_price.sav from the Flask API folder and index.html from the templates folder within this. 
+* Save these to a folder structured folder->{app1.py, xgb_car_price.sav, templates->{index.html}}
+* Run this from terminal/command prompt. Open http://127.0.0.1:5000/ in your browser to run locally.
+* On terminal: set cd to the folder containing app1.py, then enter 'python3 app1.py' and submit
 
 
 
