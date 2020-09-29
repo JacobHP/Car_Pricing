@@ -1,7 +1,10 @@
 # Car_Pricing
 An end-to-end ML project developing a car pricing tool.
 
-In this project, I scraped car information and prices from the internet, cleaned and analysed the data and built a regression model to predict car prices. I settled on using a **TBC** model which achieved a CV RMSE of **TBC** and an RMSE on unseen test data of **TBC**. 
+In this project, I scraped car information and prices from the internet, cleaned and analysed the data and built a regression model to predict car prices. I settled on using the xgboost XGBRegressor which achieved a CV RMSE of **TBC** (1739.32 on obs <£100k) and an RMSE on unseen test data of **TBC** (2929.24 on obs <£100k). 
+
+From the RMSE results it is clear that the model works reasonably well on most cars (indeed the majority of the cars scraped were <£100k), but is volatile for high-priced cars. In the future I plan to look at scraping more high-price data, building another model on these and determining criteria as to which model should be applied to an unseen test observation. D
+ue to autotrader being primarily used cars, I expect the model may also struggle on brand new cars.
 
 The website I chose to scrape from was UK car website Autotrader. I will not be uploading any of the data but have uploaded the scraping script. 
 
@@ -9,23 +12,18 @@ The website I chose to scrape from was UK car website Autotrader. I will not be 
 
 I used Selenium and BeautifulSoup (bs4) to scrape the data. 
 
-Initial Limitations: 
-* Autotrader limited to first 100 pages (i.e. even if there were 40k cars of a brand, I could only scrape ~1300 for a given search setting). 
-* Website has measures in place to combat repeated requests. I did not test the limits of these measures.
+I wrote a script that would scrape data for brands based on search setting, searching for Price (L-H), Price (H-L) and 'relevance'. For more common brands, I could run with multiple search settings then removed any duplicates. For less common brands I could just search on one setting. Data was scraped into different csv files then these were combined, with duplicate entries removed.
 
-Solutions:
-* I wrote an script that would scrape data for brands based on search setting, searching for Price (L-H), Price (H-L) and 'relevance. For more common brands, I could run with multiple search settings then removed any duplicates. For less common brands I could just search on one setting
-* I utilised the time library to pause the script at certain intervals to appear more humanlike. As a consequence the script is fairly slow (I had it scrape in the background during other activities)
+Limitations: 
+* Autotrader limited to first 100 pages (i.e. even if there were 40k cars of a brand, I could only scrape ~1300 for a given search setting). 
+* Website has measures in place to combat repeated requests. I did not push the limits of these measures and scraped conservatively by using sleep functions.
 
 Further considerations: 
-* One could argue that data was not entirely independently sampled as a result of the ordering searches. However methodology provided a reasonable attempt and no adverse effects of this were found during the analysis or modelling. 
-
-Data was scraped into different csv files then these were combined, with duplicate entries removed.
-
+* One could argue that data was not entirely independently sampled as a result of the ordering searches. However methodology provided a reasonable attempt and no obvious adverse effects of this were found during the analysis or modelling. 
 
 # 2. Cleaning
 
-The cleaning process had two distinct parts. The first was getting the data in a somewhat useable state, the second was the more finer/detailed cleaning. 
+The cleaning process had two distinct parts. The first was getting the data in a somewhat useable state, the second was the more finer/detailed cleaning: dealing with missing values, obvious outliers, ensuring consistency in categoricals etc. 
 
 **Part 1**
 
@@ -54,16 +52,30 @@ I then proceeded to:
 
 Due to the simplicity of the data and satisfying initial view, this was kept fairly short. Key highlights were as follows: 
 
-TODO. 
+* Numerical features all displayed reasonable correlation (abs > 0.5) with Price
+* Categoricals all displayed clear relationships with Price. In addition to visualisation I performed ANOVA which was conclusive in there being a difference in means between categories. 
+* Cheapest cars were from the early 2000s, moving away in either direction saw increases in price. 
 
 # 4. Feature Engineering
+
+* Log-transformed target (in the hope of pushing more values to the right for learning - model performed slightly better as a result)
+* Encoding categoricals: One-Hot Encoding using pd.get_dummies
+* Dropping ULEZ and CatN - This due to wanting to keep the model simple for the API. Did not cause significant drop in RMSE. 
 
 
 # 5. Modelling
 
+* Split data into training and out-of-sample validation.
+* Tested base models for Linear Regression, Lasso, Ridge, ElasticNet, LinearSVR, PolynomialSVR, RandomForestRegressor, LGBMRegressor (lightgbm) and XGBRegressor (xgboost). XGBRegressor was a clear winner.
+* Optimised hyperparameters for XGBRegressor using a mixture of single-parameter tuning and GridSearchCV
+* Created a scoring function to return the RMSE of predictions in terms of their actual value after exponential transformation. Applied this in both the CV scoring and scoring on validation data.
+
 
 # 6. Building an API 
 
+* Used Flask to create an API, taking user inputs into the model and returning a predicted value
+* Wrote simple HTML GUI for Flask app
+* *To be hosted somewhere*
 
 
 
