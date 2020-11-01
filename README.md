@@ -85,6 +85,8 @@ Due to the simplicity of the data and satisfying initial view, this was kept fai
 * Used Flask to create an API, taking user inputs into the model and returning a predicted value
 * Wrote simple HTML GUI for Flask app
 
+![alt text](https://github.com/JacobHP/XGBoost_Car_Pricing/blob/master/Flask%20API/Car_Pricing_API.png?raw=true)
+
 Until I get round to setting it up on gihub.io, you can try the API as follows:
 * Download app1.py, xgb_car_price.sav from the Flask API folder and index.html from the templates folder within this. 
 * Save these to a folder structured folder->{app1.py, xgb_car_price.sav, templates->{index.html}}
